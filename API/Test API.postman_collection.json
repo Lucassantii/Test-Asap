@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "50997ceb-911c-4eae-8e63-2a47384ced44",
+		"name": "Test API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22678299"
+	},
+	"item": [
+		{
+			"name": "Latitude e longitude (Geração de massa)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.openweathermap.org/geo/1.0/direct?q=São Paulo&appid=cd1622bc61f17c289c2218e3a8c3718b",
+					"protocol": "http",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"geo",
+						"1.0",
+						"direct"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "São Paulo"
+						},
+						{
+							"key": "appid",
+							"value": "cd1622bc61f17c289c2218e3a8c3718b"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validação latitude e longitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Validar status, lon, lat\", function () {\r",
+							"\r",
+							"   pm.expect(pm.response.json().coord.lon).to.be.eql(-46.6334); \r",
+							"\r",
+							"   pm.expect(pm.response.json().coord.lat).to.be.eql(-23.5507); \r",
+							"\r",
+							"});\r",
+							"pm.test(\"Validar status, id\", function () {\r",
+							"\r",
+							"   pm.expect(pm.response.json().weather[0].id).to.be.eql(501); \r",
+							"\r",
+							"   \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?lat=-23.5506507&lon=-46.6333824&appid=cd1622bc61f17c289c2218e3a8c3718b",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "-23.5506507"
+						},
+						{
+							"key": "lon",
+							"value": "-46.6333824"
+						},
+						{
+							"key": "appid",
+							"value": "cd1622bc61f17c289c2218e3a8c3718b"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validação por cidade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Validação nome cidade\", function () {\r",
+							"\r",
+							"   pm.expect(pm.response.json().name).to.be.eql(\"London\"); \r",
+							"\r",
+							"   \r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?q=London&appid=cd1622bc61f17c289c2218e3a8c3718b",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "London"
+						},
+						{
+							"key": "appid",
+							"value": "cd1622bc61f17c289c2218e3a8c3718b"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
